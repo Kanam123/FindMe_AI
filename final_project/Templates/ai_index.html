@@ -9,37 +9,37 @@
                 <h1>AI Index Control Center</h1>
                 <p class="lead">Build and inspect the local face and text vector index.</p>
             </div>
-            <span class="status-badge {% if status.index_ready %}ready{% else %}warning{% endif %}">
+            <span class="status-badge {% if status.index_ready %}ready{% else %}warning{% endif %}" data-testid="index-status-badge">
                 {% if status.index_ready %}READY{% else %}NEEDS REBUILD{% endif %}
             </span>
         </div>
         {% if report %}
-        <div class="notice">Rebuild complete: {{ report.face_embeddings_built }} face embeddings and {{ report.text_embeddings_built }} text embeddings built.</div>
+        <div class="notice" data-testid="rebuild-report"><i data-lucide="check-circle-2"></i>Rebuild complete: {{ report.face_embeddings_built }} face embeddings and {{ report.text_embeddings_built }} text embeddings built.</div>
         {% if report.face_errors %}
-        <div class="notice warning">Some face embeddings could not be built: {{ report.face_errors|join('; ') }}</div>
+        <div class="notice warning"><i data-lucide="triangle-alert"></i>Some face embeddings could not be built: {{ report.face_errors|join('; ') }}</div>
         {% endif %}
         {% endif %}
         <div class="metrics">
-            <div class="metric"><span>Profiles</span><strong>{{ status.profiles }}</strong></div>
-            <div class="metric"><span>Face Embeddings</span><strong>{{ status.face_embeddings }}</strong></div>
-            <div class="metric"><span>Text Embeddings</span><strong>{{ status.text_embeddings }}</strong></div>
-            <div class="metric"><span>Missing</span><strong>{{ status.missing_embeddings }}</strong></div>
+            <div class="metric"><span>Profiles</span><strong>{{ status.profiles }}</strong><small>Records indexed</small></div>
+            <div class="metric"><span>Face Embeddings</span><strong>{{ status.face_embeddings }}</strong><small>Face vectors</small></div>
+            <div class="metric"><span>Text Embeddings</span><strong>{{ status.text_embeddings }}</strong><small>Profile vectors</small></div>
+            <div class="metric"><span>Missing</span><strong>{{ status.missing_embeddings }}</strong><small>Incomplete sets</small></div>
         </div>
         <section class="panel admin-panel">
             <div>
-                <div class="eyebrow">Model Configuration</div>
+                <div class="eyebrow"><i data-lucide="cpu"></i> Model Configuration</div>
                 <h2>{{ status.model }}</h2>
                 <p>Face model available: <strong>{{ status.available }}</strong></p>
-                <p>Face dimensions: {{ status.embedding_dimensions }} - Threshold: {{ status.face_threshold }}</p>
-                <p>Text model: {{ status.text_model }} - Dimensions: {{ status.text_embedding_dimensions }}</p>
+                <p>Face dimensions: {{ status.embedding_dimensions }} · Threshold: {{ status.face_threshold }}</p>
+                <p>Text model: {{ status.text_model }} · Dimensions: {{ status.text_embedding_dimensions }}</p>
                 <p>Hybrid weights: face {{ status.face_weight }}, text {{ status.text_weight }}</p>
             </div>
             {% if not status.available %}
-            <div class="notice warning">Deep SFace model files are missing. Face search will use the LBPH baseline until models are installed.</div>
+            <div class="notice warning"><i data-lucide="triangle-alert"></i>Deep SFace model files are missing. Face search will use the LBPH baseline until models are installed.</div>
             {% endif %}
             <form action="/admin/rebuild-index" method="post" data-search-form>
-                <button type="submit">Build / Rebuild AI Index</button>
-                <a class="button secondary" href="/ai-index">Refresh</a>
+                <button type="submit" data-testid="rebuild-index-button"><i data-lucide="refresh-cw"></i> Build / Rebuild AI Index</button>
+                <a class="button secondary" href="/ai-index" data-testid="refresh-index">Refresh</a>
             </form>
         </section>
     </div>

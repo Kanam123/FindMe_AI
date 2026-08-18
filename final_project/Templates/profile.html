@@ -4,11 +4,11 @@
 <main class="section">
     <div class="container">
         {% if created %}
-        <div class="notice">Profile saved. LBPH baseline trained with {{ lbph_people }} people. AI index status: {{ index_report.status }}.</div>
+        <div class="notice" data-testid="profile-created-notice"><i data-lucide="check-circle-2"></i>Profile saved. LBPH baseline trained with {{ lbph_people }} people. AI index status: {{ index_report.status }}.</div>
         {% endif %}
         <div class="actions top-actions">
-            <a class="button secondary" href="/search">Back to Search</a>
-            <a class="button secondary" href="/people">People Directory</a>
+            <a class="button secondary small" href="/search" data-testid="profile-back-search"><i data-lucide="arrow-left"></i> Back to Search</a>
+            <a class="button secondary small" href="/people" data-testid="profile-directory">People Directory</a>
         </div>
         <section class="profile-hero">
             {% if person.ImagePath %}
@@ -19,7 +19,7 @@
             <div>
                 <div class="eyebrow">{{ person.PersonType or 'Authorized profile' }}</div>
                 <h1>{{ person.Name }}</h1>
-                <p>{{ person.Profession or 'Profession not added' }} - {{ person.Address }}</p>
+                <p>{{ person.Profession or 'Profession not added' }}{% if person.Address %} · {{ person.Address }}{% endif %}</p>
                 <div class="chips">
                     {% for skill in (person.Skills or '').split(',') if skill.strip() %}
                     <span class="chip">{{ skill.strip() }}</span>
@@ -44,15 +44,15 @@
         </section>
 
         {% if summary and summary.available %}
-        <section class="panel">
-            <div class="eyebrow">AI Insight</div>
+        <section class="panel" data-testid="ai-insight">
+            <div class="eyebrow"><i data-lucide="sparkles"></i> AI Insight</div>
             <h2>Grounded Profile Summary</h2>
             <p>{{ summary.summary }}</p>
             <p><small>Source: Retrieved profile data</small></p>
         </section>
         {% elif summary and summary.summary %}
         <section class="panel muted-panel">
-            <div class="eyebrow">Stored Data Summary</div>
+            <div class="eyebrow"><i data-lucide="file-text"></i> Stored Data Summary</div>
             <h2>Grounded profile notes</h2>
             <p>{{ summary.summary }}</p>
             <p><small>{{ summary.label }}</small></p>

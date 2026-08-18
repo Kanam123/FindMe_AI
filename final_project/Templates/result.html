@@ -4,10 +4,10 @@
 <main class="section">
     <div class="container">
         {% if mode == 'error' %}
-        <div class="notice error">{{ error }}</div>
+        <div class="notice error" data-testid="result-error"><i data-lucide="circle-alert"></i>{{ error }}</div>
         {% elif mode == 'not_found' %}
         <div class="empty-state">
-            <div class="empty-icon" aria-hidden="true"></div>
+            <div class="empty-icon" aria-hidden="true"><i data-lucide="search-x"></i></div>
             <h1>No strong match found</h1>
             <p>No profile crossed the configured match threshold in the authorized dataset.</p>
         </div>
@@ -16,7 +16,7 @@
             <div class="eyebrow">Search Results</div>
             <h1>Ranked profiles</h1>
         </div>
-        {% if meta.message %}<div class="notice warning">{{ meta.message }}</div>{% endif %}
+        {% if meta.message %}<div class="notice warning"><i data-lucide="info"></i>{{ meta.message }}</div>{% endif %}
         <div class="results">
             {% for result in results %}
             <article class="result-card">
@@ -27,14 +27,14 @@
                 {% endif %}
                 <div>
                     <h3>{{ result.person.Name }}</h3>
-                    <p>{{ result.person.Profession or 'Profile intelligence not added yet' }} - {{ result.person.Address }}</p>
-                    <span class="chip">{{ result.method }}</span>
+                    <p>{{ result.person.Profession or 'Profile intelligence not added yet' }}{% if result.person.Address %} · {{ result.person.Address }}{% endif %}</p>
+                    <div class="chips"><span class="chip">{{ result.method }}</span></div>
                 </div>
                 <div class="score-stack">
                     <div class="score">{{ "%.1f"|format(result.score * 100) }}%</div>
                     <p>Match Score</p>
                     <div class="mini-bar"><span style="width:{{ (result.score * 100)|round(1) }}%"></span></div>
-                    <a class="button secondary" href="/people/{{ result.person.ID }}">View Profile</a>
+                    <a class="button secondary small" href="/people/{{ result.person.ID }}">View Profile</a>
                 </div>
             </article>
             {% endfor %}

@@ -10,29 +10,27 @@
                 <p class="lead">Profiles stored in your authorized local SQLite dataset.</p>
             </div>
             <div class="actions">
-                <a class="button" href="/collect">Add Profile</a>
-                <a class="button secondary" href="/search">Search Dataset</a>
+                <a class="button" href="/collect" data-testid="add-profile"><i data-lucide="user-plus"></i> Add Profile</a>
+                <a class="button secondary" href="/search" data-testid="search-dataset">Search Dataset</a>
             </div>
         </div>
         <div class="directory-tools">
             <label>
                 <span>Search people</span>
-                <input type="search" placeholder="Search by name, skill, or location" data-people-filter>
+                <input type="search" placeholder="Search by name, skill, or location" data-people-filter data-testid="people-filter">
             </label>
             <label>
-                <span>Sort</span>
-                <select data-people-sort>
+                <span>Sort by</span>
+                <select data-people-sort data-testid="people-sort">
                     <option value="name">Name</option>
                     <option value="location">Location</option>
                     <option value="profession">Profession</option>
                 </select>
             </label>
         </div>
-        <div class="actions">
-        </div>
         <div class="people-grid" data-people-list>
             {% for person in people %}
-            <article class="person-card" data-person-card data-name="{{ person.Name|lower }}" data-location="{{ (person.Address or '')|lower }}" data-profession="{{ (person.Profession or '')|lower }}" data-search="{{ (person.Name ~ ' ' ~ (person.Profession or '') ~ ' ' ~ (person.Address or '') ~ ' ' ~ (person.Skills or ''))|lower }}">
+            <article class="person-card" data-person-card data-testid="person-card" data-name="{{ person.Name|lower }}" data-location="{{ (person.Address or '')|lower }}" data-profession="{{ (person.Profession or '')|lower }}" data-search="{{ (person.Name ~ ' ' ~ (person.Profession or '') ~ ' ' ~ (person.Address or '') ~ ' ' ~ (person.Skills or ''))|lower }}">
                 {% if person.ImagePath %}
                 <img class="avatar" src="/media/{{ person.ImagePath }}" alt="Profile image for {{ person.Name }}">
                 {% else %}
@@ -41,20 +39,21 @@
                 <div>
                     <h3>{{ person.Name }}</h3>
                     <p>{{ person.Profession or 'No profession added' }}</p>
-                    <small>{{ person.Address }}</small>
+                    {% if person.Address %}<small><i data-lucide="map-pin" style="width:13px;height:13px;vertical-align:-2px"></i> {{ person.Address }}</small>{% endif %}
                     <div class="chips">
                         {% for skill in (person.Skills or '').split(',') if skill.strip() %}
                         <span class="chip">{{ skill.strip() }}</span>
                         {% endfor %}
                     </div>
                 </div>
-                <a class="button secondary" href="/people/{{ person.ID }}">View Profile</a>
+                <a class="button secondary small" href="/people/{{ person.ID }}" data-testid="view-person">View Profile</a>
             </article>
             {% else %}
             <div class="empty-state">
-                <div class="empty-icon ready" aria-hidden="true"></div>
+                <div class="empty-icon ready" aria-hidden="true"><i data-lucide="users"></i></div>
                 <h2>No profiles yet</h2>
                 <p>Add authorized profiles to begin searching.</p>
+                <a class="button" href="/collect">Add Profile</a>
             </div>
             {% endfor %}
         </div>

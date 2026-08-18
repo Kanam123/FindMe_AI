@@ -5,19 +5,32 @@
     <div class="container two-column">
         <div>
             <div class="eyebrow">Secure Access</div>
-            <h1>Login</h1>
-            <p class="lead">Use local authentication to access dashboard and admin workflows. Passwords are stored as hashes.</p>
+            <h1>Welcome back</h1>
+            <p class="lead">Log in to access the dashboard and AI index workflows. Passwords are stored as salted hashes &mdash; never in plain text.</p>
+            <div class="auth-visual">
+                <div class="auth-feature"><div class="icon-badge"><i data-lucide="lock"></i></div><div><strong>Hashed credentials</strong><span>Local authentication with Werkzeug password hashing.</span></div></div>
+                <div class="auth-feature"><div class="icon-badge"><i data-lucide="database"></i></div><div><strong>Local-first data</strong><span>Profiles live in a private SQLite dataset you control.</span></div></div>
+            </div>
         </div>
-        <form class="panel" action="/login" method="post">
-            <label for="username">Email or username</label>
-            <input id="username" name="username" type="text" required>
-            <div style="margin-top:16px;">
+        <form class="panel auth-card" action="/login" method="post" data-testid="login-form">
+            <div class="eyebrow"><i data-lucide="log-in"></i> Sign in</div>
+            <div class="field">
+                <label for="username">Email or username</label>
+                <input id="username" name="username" type="text" placeholder="you@example.com" required data-testid="login-username">
+            </div>
+            <div class="field">
                 <label for="password">Password</label>
-                <input id="password" name="password" type="password" required>
+                <div class="password-field">
+                    <input id="password" name="password" type="password" placeholder="••••••••" required data-testid="login-password">
+                    <button class="toggle-password" type="button" data-toggle-password="password" aria-label="Show password">
+                        <i data-lucide="eye" class="eye"></i>
+                        <i data-lucide="eye-off" class="eye-off"></i>
+                    </button>
+                </div>
             </div>
             <div class="actions">
-                <button type="submit">Login</button>
-                <a class="button secondary" href="/signup">Create Account</a>
+                <button type="submit" data-testid="login-submit">Login <i data-lucide="arrow-right"></i></button>
+                <a class="button secondary" href="/signup" data-testid="goto-signup">Create Account</a>
             </div>
         </form>
     </div>

@@ -7,10 +7,10 @@
             <div class="eyebrow">Authorized people intelligence platform</div>
             <h1>FINDME AI</h1>
             <p class="hero-subtitle">AI-Powered Multimodal People Search</p>
-            <p class="lead">Search your authorized people dataset using face, natural language, or both with transparent vector retrieval and ranked profile intelligence.</p>
+            <p class="lead">Search your authorized people dataset using a face, natural language, or both &mdash; with transparent vector retrieval and ranked profile intelligence.</p>
             <div class="actions">
-                <a class="button" href="/search">Start Searching <span aria-hidden="true">-&gt;</span></a>
-                <a class="button secondary" href="#how">How It Works</a>
+                <a class="button" href="/search" data-testid="hero-start-search">Start Searching <i data-lucide="arrow-right"></i></a>
+                <a class="button secondary" href="#how" data-testid="hero-how-it-works">Explore How It Works</a>
             </div>
         </div>
         <div class="system-visual" aria-label="AI search flow">
@@ -35,25 +35,25 @@
         <div class="step-grid">
             <article class="card step-card">
                 <span class="step-number">01</span>
-                <div class="icon-badge">U</div>
+                <div class="icon-badge"><i data-lucide="upload"></i></div>
                 <h3>Upload</h3>
                 <p>Add a face image, a natural-language query, or both.</p>
             </article>
             <article class="card step-card">
                 <span class="step-number">02</span>
-                <div class="icon-badge">E</div>
+                <div class="icon-badge"><i data-lucide="brain"></i></div>
                 <h3>Understand</h3>
                 <p>Generate face embeddings and profile relevance vectors.</p>
             </article>
             <article class="card step-card">
                 <span class="step-number">03</span>
-                <div class="icon-badge">R</div>
+                <div class="icon-badge"><i data-lucide="database"></i></div>
                 <h3>Retrieve</h3>
                 <p>Search the local vector index for matching profiles.</p>
             </article>
             <article class="card step-card">
                 <span class="step-number">04</span>
-                <div class="icon-badge">K</div>
+                <div class="icon-badge"><i data-lucide="bar-chart-3"></i></div>
                 <h3>Rank</h3>
                 <p>Combine similarity and relevance into clear match scores.</p>
             </article>
@@ -68,9 +68,9 @@
             <h2>One interface, three retrieval paths</h2>
         </div>
         <div class="grid">
-            <article class="card feature-card"><div class="icon-badge">F</div><h3>Face Search</h3><p>Use OpenCV SFace deep embeddings when model files are available, with LBPH as a baseline fallback.</p></article>
-            <article class="card feature-card"><div class="icon-badge">T</div><h3>Text Search</h3><p>Retrieve profiles from stored fields using local semantic vectors.</p></article>
-            <article class="card feature-card"><div class="icon-badge">H</div><h3>Hybrid Search</h3><p>Blend face similarity and profile relevance with configurable ranking weights.</p></article>
+            <article class="card feature-card"><div class="icon-badge"><i data-lucide="scan-face"></i></div><h3>Face Search</h3><p>Use OpenCV SFace deep embeddings when model files are available, with LBPH as a baseline fallback.</p></article>
+            <article class="card feature-card"><div class="icon-badge"><i data-lucide="search"></i></div><h3>Text Search</h3><p>Retrieve profiles from stored fields using local semantic vectors.</p></article>
+            <article class="card feature-card"><div class="icon-badge"><i data-lucide="layers"></i></div><h3>Hybrid Search</h3><p>Blend face similarity and profile relevance with configurable ranking weights.</p></article>
         </div>
     </div>
 </section>
@@ -82,11 +82,12 @@
             <h2>Implemented, inspectable, local-first</h2>
         </div>
         <div class="capability-grid">
-            <article class="card compact"><h3>Deep Face Embeddings</h3><p>OpenCV YuNet and SFace generate normalized face vectors for similarity search.</p></article>
-            <article class="card compact"><h3>Semantic Search</h3><p>Profile facts are embedded into local text vectors for natural-language retrieval.</p></article>
-            <article class="card compact"><h3>Vector Retrieval</h3><p>Cosine similarity ranks face and text embeddings without exposing raw vectors.</p></article>
-            <article class="card compact"><h3>Hybrid Ranking</h3><p>Face and text signals are combined into an overall match score.</p></article>
-            <article class="card compact"><h3>Profile Intelligence</h3><p>Stored profile facts can produce grounded summaries without inventing data.</p></article>
+            <article class="card compact"><div class="icon-badge"><i data-lucide="scan-face"></i></div><h3>Deep Face Embeddings</h3><p>OpenCV YuNet and SFace generate normalized face vectors for similarity search.</p></article>
+            <article class="card compact"><div class="icon-badge"><i data-lucide="text-search"></i></div><h3>Semantic Search</h3><p>Profile facts are embedded into local text vectors for natural-language retrieval.</p></article>
+            <article class="card compact"><div class="icon-badge"><i data-lucide="git-compare"></i></div><h3>Vector Retrieval</h3><p>Cosine similarity ranks face and text embeddings without exposing raw vectors.</p></article>
+            <article class="card compact"><div class="icon-badge"><i data-lucide="layers"></i></div><h3>Hybrid Ranking</h3><p>Face and text signals are combined into an overall match score.</p></article>
+            <article class="card compact"><div class="icon-badge"><i data-lucide="sparkles"></i></div><h3>Profile Intelligence</h3><p>Stored profile facts can produce grounded summaries without inventing data.</p></article>
+            <article class="card compact"><div class="icon-badge"><i data-lucide="shield-check"></i></div><h3>Grounded Output</h3><p>Summaries rely only on retrieved records, never fabricated details.</p></article>
         </div>
     </div>
 </section>
@@ -96,7 +97,7 @@
         <div>
             <div class="eyebrow">Example result</div>
             <h2>Readable match evidence</h2>
-            <p class="lead">Results show name, profession, location, skills, and separate score signals so reviewers can see what matched.</p>
+            <p class="lead">Results show name, profession, location, skills, and separate score signals so reviewers can see exactly what matched.</p>
         </div>
         <article class="result-card showcase">
             <div class="avatar placeholder-avatar">FA</div>
@@ -120,7 +121,7 @@
 <section class="section soft-band">
     <div class="container two-column">
         <div>
-            <div class="eyebrow">Security & privacy</div>
+            <div class="eyebrow">Security &amp; privacy</div>
             <h2>Designed for consented datasets</h2>
             <p>The platform is built for private, authorized records. It avoids public scraping, covert identification, and unsupported claims.</p>
         </div>
@@ -138,13 +139,15 @@
 </section>
 
 <section class="section">
-    <div class="container final-cta">
-        <div>
-            <div class="eyebrow">Technology</div>
-            <h2>Flask, OpenCV, SQLite, vector search</h2>
-            <p>Built as a practical AI engineering portfolio project with transparent retrieval logic and clear fallback behavior.</p>
+    <div class="container">
+        <div class="final-cta">
+            <div>
+                <div class="eyebrow">Technology</div>
+                <h2>Flask, OpenCV, SQLite, vector search</h2>
+                <p>Built as a practical AI engineering portfolio project with transparent retrieval logic and clear fallback behavior.</p>
+            </div>
+            <a class="button" href="/search" data-testid="cta-open-search">Open AI Search <i data-lucide="arrow-right"></i></a>
         </div>
-        <a class="button" href="/search">Open AI Search <span aria-hidden="true">-&gt;</span></a>
     </div>
 </section>
 {% endblock %}

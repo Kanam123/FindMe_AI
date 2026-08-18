@@ -5,23 +5,42 @@
     <div class="container two-column">
         <div>
             <div class="eyebrow">Create local account</div>
-            <h1>Sign Up</h1>
+            <h1>Get started</h1>
             <p class="lead">Create an account for local demo access. Do not reuse sensitive passwords in prototype projects.</p>
-        </div>
-        <form class="panel" action="/signup" method="post">
-            <label for="username">Email or username</label>
-            <input id="username" name="username" type="text" required>
-            <div style="margin-top:16px;">
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" required>
+            <div class="auth-visual">
+                <div class="auth-feature"><div class="icon-badge"><i data-lucide="shield-check"></i></div><div><strong>Private &amp; consented</strong><span>Built for authorized datasets, never public scraping.</span></div></div>
+                <div class="auth-feature"><div class="icon-badge"><i data-lucide="sparkles"></i></div><div><strong>Multimodal AI search</strong><span>Face, text and hybrid retrieval in one interface.</span></div></div>
             </div>
-            <div style="margin-top:16px;">
+        </div>
+        <form class="panel auth-card" action="/signup" method="post" data-testid="signup-form">
+            <div class="eyebrow"><i data-lucide="user-plus"></i> Create account</div>
+            <div class="field">
+                <label for="username">Email or username</label>
+                <input id="username" name="username" type="text" placeholder="you@example.com" required data-testid="signup-username">
+            </div>
+            <div class="field">
+                <label for="password">Password</label>
+                <div class="password-field">
+                    <input id="password" name="password" type="password" placeholder="Create a password" required data-testid="signup-password">
+                    <button class="toggle-password" type="button" data-toggle-password="password" aria-label="Show password">
+                        <i data-lucide="eye" class="eye"></i>
+                        <i data-lucide="eye-off" class="eye-off"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="field">
                 <label for="confirm_password">Confirm password</label>
-                <input id="confirm_password" name="confirm_password" type="password" required>
+                <div class="password-field">
+                    <input id="confirm_password" name="confirm_password" type="password" placeholder="Re-enter password" required data-testid="signup-confirm">
+                    <button class="toggle-password" type="button" data-toggle-password="confirm_password" aria-label="Show password">
+                        <i data-lucide="eye" class="eye"></i>
+                        <i data-lucide="eye-off" class="eye-off"></i>
+                    </button>
+                </div>
             </div>
             <div class="actions">
-                <button type="submit">Create Account</button>
-                <a class="button secondary" href="/login">Login</a>
+                <button type="submit" data-testid="signup-submit">Create Account <i data-lucide="arrow-right"></i></button>
+                <a class="button secondary" href="/login" data-testid="goto-login">Login</a>
             </div>
         </form>
     </div>
