@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Login - FINDME AI{% endblock %}
+{% block content %}
+<main class="section">
+    <div class="container two-column">
+        <div>
+            <div class="eyebrow">Secure Access</div>
+            <h1>Login</h1>
+            <p class="lead">Use local authentication to access dashboard and admin workflows. Passwords are stored as hashes.</p>
+        </div>
+        <form class="panel" action="/login" method="post">
+            <label for="username">Email or username</label>
+            <input id="username" name="username" type="text" required>
+            <div style="margin-top:16px;">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required>
+            </div>
+            <div class="actions">
+                <button type="submit">Login</button>
+                <a class="button secondary" href="/signup">Create Account</a>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

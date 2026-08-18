@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Add Profile - FINDME AI{% endblock %}
+{% block content %}
+<main class="section">
+    <div class="container">
+        <div class="eyebrow">Authorized Enrollment</div>
+        <h1>Add Person</h1>
+        <p class="lead">Create or update a profile in the private dataset. Only add people with proper authorization or consent.</p>
+        <form class="panel" action="/submit_form" method="post" enctype="multipart/form-data">
+            <div class="form-grid">
+                <div>
+                    <label for="id_number">ID number</label>
+                    <input type="number" id="id_number" name="ID" required>
+                </div>
+                <div>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div>
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="cno">Contact</label>
+                    <input type="text" id="cno" name="cno" required>
+                </div>
+                <div>
+                    <label for="add">Location</label>
+                    <input type="text" id="add" name="add" required>
+                </div>
+                <div>
+                    <label for="profession">Profession</label>
+                    <input type="text" id="profession" name="profession" placeholder="Software Developer">
+                </div>
+                <div>
+                    <label for="skills">Skills</label>
+                    <input type="text" id="skills" name="skills" placeholder="Python, Java, Machine Learning">
+                </div>
+                <div>
+                    <label for="education">Education</label>
+                    <input type="text" id="education" name="education">
+                </div>
+                <div>
+                    <label for="certifications">Certifications</label>
+                    <input type="text" id="certifications" name="certifications">
+                </div>
+                <div>
+                    <label for="person">Dataset authorization type</label>
+                    <select id="person" name="person" required>
+                        <option value="Authorized">Authorized / consented</option>
+                        <option value="Missing person case">Missing person case</option>
+                        <option value="Internal demo">Internal demo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="path">Profile face image</label>
+                    <input type="file" id="path" name="path" accept="image/jpeg,image/png,image/webp">
+                </div>
+            </div>
+            <div style="margin-top:16px;">
+                <label for="experience">Experience</label>
+                <textarea id="experience" name="experience" placeholder="Describe professional experience using only provided facts."></textarea>
+            </div>
+            <div style="margin-top:16px;">
+                <label for="projects">Projects</label>
+                <textarea id="projects" name="projects"></textarea>
+            </div>
+            <div style="margin-top:16px;">
+                <label for="bio">About</label>
+                <textarea id="bio" name="bio"></textarea>
+            </div>
+            <div class="actions">
+                <button type="submit">Save Profile & Rebuild Index</button>
+                <a class="button secondary" href="/people">View People</a>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

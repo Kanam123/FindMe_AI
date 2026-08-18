@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>collect db</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- CSS RELATED TO THIS PAGE  -->
+    <style>
+
+.msec_1 {
+            width: 100%;
+            height: 90vh;
+            background-image: url('/static/img/bg_investigation.PNG');
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            opacity: 0.7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+        }
+
+        .uandv img {
+            width: 400px;
+            height: 400px;
+            border-radius: 50px;
+        }
+
+        .uandv {
+            /* width: 30vh;
+            height: 50vh; */
+            width: 400px;
+            height: 400px;
+            background-color: white;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 30px;
+        }
+
+        #controls {
+            background-color: white;
+            border: 2px solid black;
+            text-align: center;
+            width: 80%;
+        }
+
+        #controls li input {
+            width: 50%;
+        }
+
+        #verify {
+            display: flex;
+            background-color: rgb(255, 68, 0);
+            color: white;
+        }
+        @media screen and (max-width:450px){
+            .uandv {
+            /* width: 30vh;
+            height: 50vh; */
+            width: 250px;
+            height: 250px; 
+            }
+            .uandv img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50px;
+        }
+
+        }
+        /* prev style page */
+        main{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        table{
+            display: block;
+        }
+        table, th, td {
+            padding: 10px;
+        }
+        label{
+            padding: 5px;
+        }
+        .tcriminal{
+            display: none;
+        }
+        .is-active{
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="com_logo">
+                <li class="hl_nav"><a href="#"><img class="logo" src="static/img/logo1.jpg" alt="FIND ME"></a></li>
+            </ul>
+
+            <ul class="hu_nav">
+                <li class="hl_nav"><a class="bor" href="/">Home</a></li>
+                <li class="hl_nav"><a class="bor" href="/services">Services</a></li>
+                <li class="hl_nav"><a class="bor" href="/about">About</a></li>
+                <li class="hl_nav"><a class="bor" href="/contact_us">Contact</a></li>
+            </ul>
+            <ul class="hu_nav">
+                <li class="hl_nav"><a href="/signup"><button class="btn">Sign Up</button></li></a>
+                <li class="hl_nav"><a href="/login"><button class="btn">Login</button></li></a>
+            </ul>
+            <button class="hamburger" onclick="show()" aria-label="Open navigation menu" type="button"><div class="bar"></div></button>
+        </nav>
+        <nav class="menu">
+            <ul class="menuitems">
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact_us">contact_us</a></li>
+                <li><a href="/signup"><button class="btn">Sign Up</button></li></a>
+                <li><a href="/login"><button class="btn">Login</button></li></a>
+            </ul>
+        </nav>
+    </header>
+    <!-- <div id="empty"></div> -->
+    <!-- <hr> -->
+    <section class="error">
+        <p>To view this website please use a larger screen size device</p>
+    </section>
+
+    <main>
+        
+       <div class="container">
+        <h1 style="text-align: center;">ENTER DATA</h1>
+
+        <form action="/submit_form" method="post" enctype="multipart/form-data">
+            <table>
+                <tr>
+                    <th><label for="id_number">ID number</label></th>
+                    <th><input type="number" id="id_number" name="ID" placeholder="ID number" required></th>
+                </tr>
+                <tr>
+                    <th><label for="name">Name</label></th>
+                    <th><input type="text" id="name" name="name" placeholder="Enter name" required></th>
+                </tr>
+                <tr>
+                    <th><label for="age">Age</label></th>
+                    <th><input type="number" id="age" name="age" placeholder="Enter age" required></th>
+                </tr>
+                <tr>
+                    <th>Gender</th>
+                    <th><input type="radio" name="gender" id="male" value="male" required ><label for="male">Male</label><br>
+                        <input type="radio" name="gender" id="female" value="Female" required ><label for="female">Female</label><br>
+                    <input type="radio" name="gender" id="other" value="other" required ><label for="other">Other</label></th><br>
+
+                    <!-- <th><input type="text" id="gender" name="gender"  placeholder="Enter gender"></th> -->
+                </tr>
+    
+                <tr>
+                    <th><label for="cno">Contact</label></th>
+                    <th><input type="text" id="cno" name="cno"  placeholder="Enter contact" required></th>
+                </tr>
+                <tr>
+                    <th><label for="add">Location</label></th>
+                    <th><input type="text" id="add" name="add" required  placeholder="Enter location "></th>
+                </tr>
+                
+                <tr>
+                    <th><label for="path">Upload Image</label></th>
+                    <!-- <th><input type="text" id="path" name="path" required  placeholder="Enter path "></th> -->
+                    <th><input type="file" name="path" id="path" accept="image/jpeg,image/png,image/webp" required></th>
+                </tr>
+    
+                <tr>
+                    <th>Type of person</th>
+                    <th><input type="radio" name="person" id="indian" value="Indian" required ><label for="indian">Indian</label><br>
+                    <input type="radio"  name="person" id="foreign" value="Foreign" onclick="showDetails()" required><label for="foreign">Foreign</label></th>
+                </tr>
+              </table>  
+              <table  class="tperson">
+                <tr>
+                    <!-- <th>Committed</th>
+                    <th><input type="text" style="visibility:hidden" id="crime" name="crime" placeholder="Crime Committed"></th> -->
+                </tr>
+              </table>
+              <input class="btn" type="submit" value="Submit">
+        </form>
+       </div>
+          
+    </main>
+
+    <footer>
+        <div id="footer1">
+            <div>
+                <img class="logo" src="static/img/logo1.jpg" alt=" FIND ME">
+            </div>
+            <br>
+            <div>
+                <p>Copy Right &copy; All Rights Reserved 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+    <script src="/static/javascript/engine.js"></script>
+    <script>
+    function showDetails(){
+        if (document.getElementById('indian').checked) {
+            document.getElementById('crime').style.visibility = 'hidden';
+        }
+
+        if (document.getElementById('foreign').checked) {
+            document.getElementById('crime').style.visibility = 'visible';
+        }
+            else{ document.getElementById('crime').style.visibility = 'hidden';
+        }
+        const extra_field=document.getElementsByClassName('tperson');
+        console.log(extra_field);
+        extra_field[0].classList.toggle('is-active');
+    }
+    </script>
+</body>
+
+</html>

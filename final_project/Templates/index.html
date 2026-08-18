@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block title %}FINDME AI - Multimodal People Search{% endblock %}
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <div class="eyebrow">Authorized people intelligence platform</div>
+            <h1>FINDME AI</h1>
+            <p class="hero-subtitle">AI-Powered Multimodal People Search</p>
+            <p class="lead">Search your authorized people dataset using face, natural language, or both with transparent vector retrieval and ranked profile intelligence.</p>
+            <div class="actions">
+                <a class="button" href="/search">Start Searching <span aria-hidden="true">-&gt;</span></a>
+                <a class="button secondary" href="#how">How It Works</a>
+            </div>
+        </div>
+        <div class="system-visual" aria-label="AI search flow">
+            <div class="signal-row">
+                <div class="signal-card"><span>Face</span><strong>Embeddings</strong></div>
+                <div class="merge-token">+</div>
+                <div class="signal-card"><span>Text</span><strong>Semantics</strong></div>
+            </div>
+            <div class="pipeline-card pulse">AI Search</div>
+            <div class="pipeline-card">Vector Retrieval</div>
+            <div class="pipeline-card">Ranked Profiles</div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="how">
+    <div class="container">
+        <div class="section-heading">
+            <div class="eyebrow">How it works</div>
+            <h2>From signal to ranked result</h2>
+        </div>
+        <div class="step-grid">
+            <article class="card step-card">
+                <span class="step-number">01</span>
+                <div class="icon-badge">U</div>
+                <h3>Upload</h3>
+                <p>Add a face image, a natural-language query, or both.</p>
+            </article>
+            <article class="card step-card">
+                <span class="step-number">02</span>
+                <div class="icon-badge">E</div>
+                <h3>Understand</h3>
+                <p>Generate face embeddings and profile relevance vectors.</p>
+            </article>
+            <article class="card step-card">
+                <span class="step-number">03</span>
+                <div class="icon-badge">R</div>
+                <h3>Retrieve</h3>
+                <p>Search the local vector index for matching profiles.</p>
+            </article>
+            <article class="card step-card">
+                <span class="step-number">04</span>
+                <div class="icon-badge">K</div>
+                <h3>Rank</h3>
+                <p>Combine similarity and relevance into clear match scores.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <div class="eyebrow">Search modes</div>
+            <h2>One interface, three retrieval paths</h2>
+        </div>
+        <div class="grid">
+            <article class="card feature-card"><div class="icon-badge">F</div><h3>Face Search</h3><p>Use OpenCV SFace deep embeddings when model files are available, with LBPH as a baseline fallback.</p></article>
+            <article class="card feature-card"><div class="icon-badge">T</div><h3>Text Search</h3><p>Retrieve profiles from stored fields using local semantic vectors.</p></article>
+            <article class="card feature-card"><div class="icon-badge">H</div><h3>Hybrid Search</h3><p>Blend face similarity and profile relevance with configurable ranking weights.</p></article>
+        </div>
+    </div>
+</section>
+
+<section class="section soft-band">
+    <div class="container">
+        <div class="section-heading">
+            <div class="eyebrow">AI capabilities</div>
+            <h2>Implemented, inspectable, local-first</h2>
+        </div>
+        <div class="capability-grid">
+            <article class="card compact"><h3>Deep Face Embeddings</h3><p>OpenCV YuNet and SFace generate normalized face vectors for similarity search.</p></article>
+            <article class="card compact"><h3>Semantic Search</h3><p>Profile facts are embedded into local text vectors for natural-language retrieval.</p></article>
+            <article class="card compact"><h3>Vector Retrieval</h3><p>Cosine similarity ranks face and text embeddings without exposing raw vectors.</p></article>
+            <article class="card compact"><h3>Hybrid Ranking</h3><p>Face and text signals are combined into an overall match score.</p></article>
+            <article class="card compact"><h3>Profile Intelligence</h3><p>Stored profile facts can produce grounded summaries without inventing data.</p></article>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container two-column">
+        <div>
+            <div class="eyebrow">Example result</div>
+            <h2>Readable match evidence</h2>
+            <p class="lead">Results show name, profession, location, skills, and separate score signals so reviewers can see what matched.</p>
+        </div>
+        <article class="result-card showcase">
+            <div class="avatar placeholder-avatar">FA</div>
+            <div>
+                <h3>Authorized Profile</h3>
+                <p>Software Developer · Bangalore</p>
+                <div class="chips"><span class="chip">Python</span><span class="chip">Machine Learning</span><span class="chip">Vector Search</span></div>
+            </div>
+            <div class="score-stack">
+                <div class="score">92.4%</div>
+                <p>Match Score</p>
+                <div class="mini-bar"><span style="width:96%"></span></div>
+                <small>Face Similarity</small>
+                <div class="mini-bar alt"><span style="width:88%"></span></div>
+                <small>Profile Relevance</small>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="section soft-band">
+    <div class="container two-column">
+        <div>
+            <div class="eyebrow">Security & privacy</div>
+            <h2>Designed for consented datasets</h2>
+            <p>The platform is built for private, authorized records. It avoids public scraping, covert identification, and unsupported claims.</p>
+        </div>
+        <div class="panel">
+            <div class="chips large-chips">
+                <span class="chip">Secure uploads</span>
+                <span class="chip">SQLite local data</span>
+                <span class="chip">Password hashing</span>
+                <span class="chip">No public scraping</span>
+                <span class="chip">Grounded summaries</span>
+                <span class="chip">Local vector index</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container final-cta">
+        <div>
+            <div class="eyebrow">Technology</div>
+            <h2>Flask, OpenCV, SQLite, vector search</h2>
+            <p>Built as a practical AI engineering portfolio project with transparent retrieval logic and clear fallback behavior.</p>
+        </div>
+        <a class="button" href="/search">Open AI Search <span aria-hidden="true">-&gt;</span></a>
+    </div>
+</section>
+{% endblock %}

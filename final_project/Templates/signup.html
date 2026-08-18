@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Signup - FINDME AI{% endblock %}
+{% block content %}
+<main class="section">
+    <div class="container two-column">
+        <div>
+            <div class="eyebrow">Create local account</div>
+            <h1>Sign Up</h1>
+            <p class="lead">Create an account for local demo access. Do not reuse sensitive passwords in prototype projects.</p>
+        </div>
+        <form class="panel" action="/signup" method="post">
+            <label for="username">Email or username</label>
+            <input id="username" name="username" type="text" required>
+            <div style="margin-top:16px;">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" required>
+            </div>
+            <div style="margin-top:16px;">
+                <label for="confirm_password">Confirm password</label>
+                <input id="confirm_password" name="confirm_password" type="password" required>
+            </div>
+            <div class="actions">
+                <button type="submit">Create Account</button>
+                <a class="button secondary" href="/login">Login</a>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

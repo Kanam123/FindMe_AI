@@ -1,0 +1,41 @@
+FIND ME - AI Driven People Search Engine
+
+Main file:
+app.py
+
+Quick run on Windows:
+1. Open this folder in terminal:
+   C:\Users\aayus\OneDrive\Desktop\Final mini project\final_project
+2. Run:
+   run_project.bat
+3. Open:
+   http://127.0.0.1:5000
+
+Manual run:
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe app.py
+
+Important pages:
+/               Home
+/services       Services
+/collect        Add person to the database
+/verify         Search person by face image
+/signup         Create a local account
+/login          Local login
+
+Database:
+The app uses SQLite at:
+..\db\UserDetails.db
+
+The People table stores profile details, person type, image path, and timestamps.
+Existing People records are preserved and migrated when the app starts.
+
+Dependencies:
+Flask
+numpy
+opencv-contrib-python
+Pillow
+
+Note:
+The old env folder was tied to another Windows Python path. Use the new .venv folder.

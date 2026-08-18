@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>Find Me Result</title>
+    <style>
+        main {
+            min-height: 75vh;
+            background-image: url('/static/img/bg_investigation.PNG');
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 15px;
+        }
+
+        .result-panel {
+            width: min(760px, 95vw);
+            background: rgba(255, 255, 255, 0.94);
+            border: 2px solid #000000;
+            border-radius: 28px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .result-panel h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: rgb(10 19 112);
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 12px;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .result-grid div {
+            padding: 10px;
+            background: #f2f2f2;
+            border-radius: 12px;
+        }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .result-actions a {
+            text-decoration: none;
+        }
+
+        @media screen and (max-width: 600px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="com_logo">
+                <li class="hl_nav"><a href="/"><img class="logo" src="static/img/logo1.jpg" alt="FIND ME"></a></li>
+            </ul>
+
+            <ul class="hu_nav">
+                <li class="hl_nav"><a class="bor" href="/">Home</a></li>
+                <li class="hl_nav"><a class="bor" href="/services">Services</a></li>
+                <li class="hl_nav"><a class="bor" href="/about">About</a></li>
+                <li class="hl_nav"><a class="bor" href="/contact_us">Contact</a></li>
+            </ul>
+            <ul class="hu_nav">
+                <li class="hl_nav"><a href="/signup"><button class="btn">Sign Up</button></a></li>
+                <li class="hl_nav"><a href="/login"><button class="btn">Login</button></a></li>
+            </ul>
+            <button class="hamburger" onclick="show()"><div class="bar"></div></button>
+        </nav>
+        <nav class="menu">
+            <ul class="menuitems">
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact_us">contact_us</a></li>
+                <li><a href="/signup"><button class="btn">Sign Up</button></a></li>
+                <li><a href="/login"><button class="btn">Login</button></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="error">
+        <p>To view this website please use a larger screen size device</p>
+    </section>
+
+    <main>
+        <section class="result-panel">
+            {% if mode == 'created' %}
+                <h1>Person Added Successfully</h1>
+                <p>{{ samples }} face samples saved. Recognizer trained with {{ trained_people }} people.</p>
+            {% elif mode == 'found' %}
+                <h1>Match Found</h1>
+                {% if confidence is not none %}
+                <p>AI match confidence score: {{ confidence }}. Lower score means a closer match.</p>
+                {% endif %}
+            {% elif mode == 'not_found' %}
+                <h1>No Match Found</h1>
+                <p>We could not find a close match in the current database.</p>
+                {% if confidence is not none %}
+                <p>Closest score checked: {{ confidence }}.</p>
+                {% endif %}
+            {% else %}
+                <h1>Something Needs Attention</h1>
+                <p>{{ error }}</p>
+            {% endif %}
+
+            {% if person %}
+            <div class="result-grid">
+                <div>ID</div>
+                <div>{{ person['ID'] }}</div>
+                <div>Name</div>
+                <div>{{ person['Name'] }}</div>
+                <div>Age</div>
+                <div>{{ person['Age'] }}</div>
+                <div>Gender</div>
+                <div>{{ person['Gender'] }}</div>
+                <div>Contact</div>
+                <div>{{ person['CN'] }}</div>
+                <div>Location</div>
+                <div>{{ person['Address'] }}</div>
+                <div>Type</div>
+                <div>{{ person['PersonType'] or 'Indian' }}</div>
+            </div>
+            {% endif %}
+
+            <div class="result-actions">
+                <a href="/verify"><button class="btn">Search Again</button></a>
+                <a href="/collect"><button class="btn">Add Person</button></a>
+                <a href="/services"><button class="btn">Services</button></a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div id="footer1">
+            <div>
+                <img class="logo" src="static/img/logo1.jpg" alt="FIND ME">
+            </div>
+            <br>
+            <div>
+                <p>Copy Right &copy; All Rights Reserved 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+    <script src="/static/javascript/engine.js"></script>
+</body>
+
+</html>

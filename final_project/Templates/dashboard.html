@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - FINDME AI{% endblock %}
+{% block content %}
+<main class="section">
+    <div class="container">
+        <div class="section-heading split-heading">
+            <div>
+                <div class="eyebrow">Operational Dashboard</div>
+                <h1>Dataset Health</h1>
+                <p class="lead">Live metrics from the local SQLite dataset and AI index.</p>
+            </div>
+            <span class="status-badge {% if stats.index_ready %}ready{% else %}warning{% endif %}">
+                {% if stats.index_ready %}READY{% else %}NEEDS REBUILD{% endif %}
+            </span>
+        </div>
+        <div class="metrics">
+            <div class="metric"><span>Total Profiles</span><strong>{{ stats.profiles }}</strong><small>Stored records</small></div>
+            <div class="metric"><span>AI Embeddings</span><strong>{{ stats.face_embeddings }}</strong><small>Face vectors</small></div>
+            <div class="metric"><span>Text Embeddings</span><strong>{{ stats.text_embeddings }}</strong><small>Profile vectors</small></div>
+            <div class="metric"><span>Searches</span><strong>{{ stats.searches }}</strong><small>Logged queries</small></div>
+        </div>
+        <div class="dashboard-grid">
+            <section class="panel">
+                <div class="eyebrow">Index Status</div>
+                <h2>{% if stats.index_ready %}Ready for multimodal search{% else %}Needs rebuild or more profile data{% endif %}</h2>
+                <p>{{ stats.missing_embeddings }} profile{% if stats.missing_embeddings != 1 %}s{% endif %} missing a complete embedding set.</p>
+                <a class="button" href="/ai-index">Manage AI Index</a>
+            </section>
+            <section class="panel subtle-chart" aria-label="Embedding coverage">
+                <h2>Embedding Coverage</h2>
+                <div class="coverage-row"><span>Face</span><div class="mini-bar"><span style="width:{% if stats.profiles %}{{ (stats.face_embeddings / stats.profiles * 100)|round(1) }}{% else %}0{% endif %}%"></span></div></div>
+                <div class="coverage-row"><span>Text</span><div class="mini-bar alt"><span style="width:{% if stats.profiles %}{{ (stats.text_embeddings / stats.profiles * 100)|round(1) }}{% else %}0{% endif %}%"></span></div></div>
+            </section>
+        </div>
+    </div>
+</main>
+{% endblock %}

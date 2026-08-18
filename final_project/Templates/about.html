@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}About - FINDME AI{% endblock %}
+{% block content %}
+<main class="section">
+    <div class="container">
+        <div class="eyebrow">About the project</div>
+        <h1>Responsible AI People Search</h1>
+        <p class="lead">FINDME AI is a local prototype for searching an authorized people dataset with face recognition, profile text retrieval, vector similarity, and hybrid ranking.</p>
+        <div class="grid">
+            <article class="card">
+                <h3>Baseline</h3>
+                <p>Haar Cascade face detection and OpenCV LBPH recognition remain available as a clear, explainable baseline.</p>
+            </article>
+            <article class="card">
+                <h3>New AI Layer</h3>
+                <p>OpenCV SFace deep embeddings are used when model files are installed. Text vectors support profile relevance ranking.</p>
+            </article>
+            <article class="card">
+                <h3>Privacy</h3>
+                <p>The app is intended only for authorized or consented datasets. It does not scrape the internet or identify arbitrary strangers.</p>
+            </article>
+        </div>
+    </div>
+</main>
+{% endblock %}

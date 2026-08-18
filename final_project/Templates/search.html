@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}Search - FINDME AI{% endblock %}
+{% block content %}
+<main class="search-shell">
+    <div class="container">
+        <div class="page-kicker">
+            <span class="status-dot {% if index_status.index_ready %}ready{% else %}warning{% endif %}"></span>
+            {% if index_status.index_ready %}AI index ready{% else %}AI index needs attention{% endif %}
+        </div>
+        <div class="search-hero">
+            <div>
+                <div class="eyebrow">Multimodal Search</div>
+                <h1>Find people using AI</h1>
+                <p class="lead">Search using a face, natural language, or both. Scores are similarity and relevance indicators, not calibrated probabilities.</p>
+            </div>
+            <div class="index-mini">
+                <span>{{ index_status.profiles }}</span>
+                <small>profiles</small>
+                <span>{{ index_status.face_embeddings }}</span>
+                <small>face vectors</small>
+                <span>{{ index_status.text_embeddings }}</span>
+                <small>text vectors</small>
+            </div>
+        </div>
+
+        {% if not index_status.index_ready %}
+        <div class="notice warning">AI index needs attention. Text search can still run from live profile fields, and face search will use LBPH if deep models are unavailable.</div>
+        {% endif %}
+        {% if error %}
+        <div class="notice error">{{ error }}</div>
+        {% endif %}
+        {% if meta.message %}
+        <div class="notice warning">{{ meta.message }}</div>
+        {% endif %}
+
+        <section class="search-panel">
+            <div class="segmented" role="tablist" aria-label="Search modes">
+                <a class="{% if mode == 'face' %}active{% endif %}" href="/search?mode=face">Face Search</a>
+                <a class="{% if mode == 'text' %}active{% endif %}" href="/search?mode=text">Text Search</a>
+                <a class="{% if mode == 'hybrid' %}active{% endif %}" href="/search?mode=hybrid">Hybrid Search</a>
+            </div>
+            <form method="post" enctype="multipart/form-data" data-search-form>
+                <input type="hidden" name="mode" value="{{ mode }}">
+                {% if mode in ['face', 'hybrid'] %}
+                <div class="upload-box" data-upload-box>
+                    <input class="file-input" type="file" id="path" name="path" accept="image/jpeg,image/png,image/webp" {% if mode == 'face' %}required{% endif %} data-image-input>
+                    <label for="path" class="upload-label">
+                        <span class="upload-icon" aria-hidden="true"></span>
+                        <strong>Drop a face image here</strong>
+                        <span>or click to browse</span>
+                        <small>JPG / PNG / WEBP - Max 8MB</small>
+                    </label>
+                    <div class="upload-preview" data-upload-preview hidden>
+                        <img alt="Selected face preview" data-preview-image>
+                        <div>
+                            <strong>Image ready</strong>
+                            <span data-file-name></span>
+                            <button class="button small secondary" type="button" data-remove-image>Remove</button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if mode in ['text', 'hybrid'] %}
+                <div class="search-input-wrap">
+                    <label for="query">Natural-language query</label>
+                    <div class="search-field">
+                        <span aria-hidden="true">/</span>
+                        <textarea id="query" name="query" placeholder="Find people with Python and machine learning experience..." {% if mode == 'text' %}required{% endif %}>{{ query }}</textarea>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="loading-steps" hidden data-loading-state aria-live="polite">
+                    <span>Analyzing image</span>
+                    <span>Generating embedding</span>
+                    <span>Searching profiles</span>
+                    <span>Ranking matches</span>
+                </div>
+                <div class="actions">
+                    <button type="submit">Start AI Search <span aria-hidden="true">-&gt;</span></button>
+                    <a class="button secondary" href="/ai-index">Check AI Index</a>
+                </div>
+            </form>
+        </section>
+
+        <section class="results" aria-live="polite">
+            {% if results %}
+                <div class="results-toolbar">
+                    <div>
+                        <div class="eyebrow">Search Results</div>
+                        <h2>{{ results|length }} matching profile{% if results|length != 1 %}s{% endif %}</h2>
+                    </div>
+                    <label class="sort-control">Sort
+                        <select aria-label="Sort results">
+                            <option>Best Match</option>
+                            <option>Highest Similarity</option>
+                            <option>Most Relevant</option>
+                        </select>
+                    </label>
+                </div>
+                {% for result in results %}
+                <article class="result-card">
+                    {% if result.person.ImagePath %}
+                    <img class="avatar" src="/media/{{ result.person.ImagePath }}" alt="Profile image for {{ result.person.Name }}">
+                    {% else %}
+                    <div class="avatar placeholder-avatar" aria-hidden="true">{{ result.person.Name[:2]|upper }}</div>
+                    {% endif %}
+                    <div>
+                        <h3>{{ result.person.Name }}</h3>
+                        <p>{{ result.person.Profession or 'Profile intelligence not added yet' }} - {{ result.person.Address }}</p>
+                        <div class="chips">
+                            {% for skill in (result.person.Skills or '').split(',') if skill.strip() %}
+                            <span class="chip">{{ skill.strip() }}</span>
+                            {% endfor %}
+                            <span class="chip">{{ result.method }}</span>
+                        </div>
+                    </div>
+                    <div class="score-stack">
+                        <div class="score">{{ "%.1f"|format(result.score * 100) }}%</div>
+                        <p>Match Score</p>
+                        <div class="mini-bar"><span style="width:{{ (result.score * 100)|round(1) }}%"></span></div>
+                        {% if result.face_similarity is not none %}
+                        <small>Face Similarity {{ "%.1f"|format(result.face_similarity * 100) }}%</small>
+                        <div class="mini-bar"><span style="width:{{ (result.face_similarity * 100)|round(1) }}%"></span></div>
+                        {% endif %}
+                        {% if result.text_similarity is not none %}
+                        <small>Profile Relevance {{ "%.1f"|format(result.text_similarity * 100) }}%</small>
+                        <div class="mini-bar alt"><span style="width:{{ (result.text_similarity * 100)|round(1) }}%"></span></div>
+                        {% endif %}
+                        <a class="button secondary" href="/people/{{ result.person.ID }}">View Profile</a>
+                    </div>
+                </article>
+                {% endfor %}
+            {% elif request.method == 'POST' and not error %}
+                <div class="empty-state">
+                    <div class="empty-icon" aria-hidden="true"></div>
+                    <h2>No results found</h2>
+                    <p>No matching profiles crossed the current retrieval criteria.</p>
+                    <ul>
+                        <li>Try a clearer face image.</li>
+                        <li>Use a broader profile description.</li>
+                        <li>Rebuild the AI index if profiles changed.</li>
+                    </ul>
+                    <a class="button" href="/search">Try Again</a>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon ready" aria-hidden="true"></div>
+                    <h2>Ready to search</h2>
+                    <p>Use face search for visual matching, text search for profile intelligence, or hybrid search when you have both image and context.</p>
+                </div>
+            {% endif %}
+        </section>
+    </div>
+</main>
+{% endblock %}

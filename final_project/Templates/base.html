@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FINDME AI{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+    <header class="nav">
+        <div class="nav-inner">
+            <a class="brand" href="/" aria-label="FINDME AI home">
+                <span class="brand-mark" aria-hidden="true">F</span>
+                <span class="brand-copy">
+                    <strong>FINDME AI</strong>
+                    <small>Profile Intelligence</small>
+                </span>
+            </a>
+            <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav class="nav-links" aria-label="Main navigation" data-nav-menu>
+                <a class="{% if request.path.startswith('/search') or request.path == '/verify' %}active{% endif %}" href="/search">Search</a>
+                <a class="{% if request.path.startswith('/people') or request.path == '/collect' %}active{% endif %}" href="/people">People</a>
+                <a class="{% if request.path == '/dashboard' %}active{% endif %}" href="/dashboard">Dashboard</a>
+                <a class="{% if request.path.startswith('/ai-index') %}active{% endif %}" href="/ai-index">AI Index</a>
+                <a class="{% if request.path == '/about' %}active{% endif %}" href="/about">About</a>
+            </nav>
+            <div class="nav-actions">
+                {% if current_user %}
+                <span class="avatar-mini" aria-label="Current user">{{ current_user[:1]|upper }}</span>
+                <a class="icon-link" href="/dashboard" aria-label="Settings">Settings</a>
+                <a class="button small secondary" href="/logout">Logout</a>
+                {% else %}
+                <a class="button small secondary" href="/login">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="container">
+        <div class="notice">{{ messages[0] }}</div>
+    </div>
+    {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+    <footer class="footer">
+        <div class="container">
+            <span>FINDME AI is intended only for authorized, consented private datasets.</span>
+            <span>It does not scrape public people data or identify arbitrary strangers.</span>
+        </div>
+    </footer>
+    <script src="/static/javascript/engine.js"></script>
+</body>
+</html>

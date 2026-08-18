@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Result - FINDME AI{% endblock %}
+{% block content %}
+<main class="section">
+    <div class="container">
+        {% if mode == 'error' %}
+        <div class="notice error">{{ error }}</div>
+        {% elif mode == 'not_found' %}
+        <div class="empty-state">
+            <div class="empty-icon" aria-hidden="true"></div>
+            <h1>No strong match found</h1>
+            <p>No profile crossed the configured match threshold in the authorized dataset.</p>
+        </div>
+        {% else %}
+        <div class="section-heading">
+            <div class="eyebrow">Search Results</div>
+            <h1>Ranked profiles</h1>
+        </div>
+        {% if meta.message %}<div class="notice warning">{{ meta.message }}</div>{% endif %}
+        <div class="results">
+            {% for result in results %}
+            <article class="result-card">
+                {% if result.person.ImagePath %}
+                <img class="avatar" src="/media/{{ result.person.ImagePath }}" alt="Profile image for {{ result.person.Name }}">
+                {% else %}
+                <div class="avatar placeholder-avatar" aria-hidden="true">{{ result.person.Name[:2]|upper }}</div>
+                {% endif %}
+                <div>
+                    <h3>{{ result.person.Name }}</h3>
+                    <p>{{ result.person.Profession or 'Profile intelligence not added yet' }} - {{ result.person.Address }}</p>
+                    <span class="chip">{{ result.method }}</span>
+                </div>
+                <div class="score-stack">
+                    <div class="score">{{ "%.1f"|format(result.score * 100) }}%</div>
+                    <p>Match Score</p>
+                    <div class="mini-bar"><span style="width:{{ (result.score * 100)|round(1) }}%"></span></div>
+                    <a class="button secondary" href="/people/{{ result.person.ID }}">View Profile</a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="actions">
+            <a class="button" href="/search">Search Again</a>
+            <a class="button secondary" href="/collect">Add Person</a>
+        </div>
+    </div>
+</main>
+{% endblock %}
