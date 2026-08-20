@@ -60,3 +60,9 @@ facedataimages/facedata/*
 # Temp files
 tempCodeRunnerFile.py
 *.tmp
+.env.*
+*.env
+credentials.json
+*.pem
+*.key
+.credentials
